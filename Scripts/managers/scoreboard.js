@@ -30,7 +30,7 @@ var managers;
         });
         Object.defineProperty(ScoreBoard.prototype, "HighScore", {
             get: function () {
-                return this._lives;
+                return this._highScore;
             },
             set: function (newHighScore) {
                 this._highScore = newHighScore;

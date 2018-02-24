@@ -30,7 +30,7 @@ module managers {
     }
 
     get HighScore():number {
-      return this._lives;
+      return this._highScore;
     }
 
     set HighScore(newHighScore:number) {
