@@ -16,6 +16,7 @@ module objects {
 
     // Initializes variables and creates new objects
     public Start():void {
+      this.x = 320;
       this.y = 430;
     }
 
@@ -32,7 +33,18 @@ module objects {
 
     // move the object to some new location
     public Move():void {
-      this.x = objects.Game.stage.mouseX;
+     // mouse controls
+     // this.x = objects.Game.stage.mouseX;
+
+     // keyboard controls
+     if(objects.Game.keyboardManager.moveLeft) {
+       this.x -= 5;
+     }
+
+     if(objects.Game.keyboardManager.moveRight) {
+       this.x += 5;
+     }
+
     }
 
     // check to see if some boundary has been passed
