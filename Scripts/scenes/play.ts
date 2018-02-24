@@ -6,6 +6,7 @@ module scenes {
     private _island: objects.Island;
     private _clouds: objects.Cloud[];
     private _cloudNum: number;
+    private _scoreBoard: managers.ScoreBoard;
 
     private _engineSound: createjs.AbstractSoundInstance;
 
@@ -42,6 +43,9 @@ module scenes {
       this._engineSound.loop = -1; // play forever
       this._engineSound.volume = 0.3;
 
+      // create the scoreboard UI for the Scene
+      this._scoreBoard = new managers.ScoreBoard();
+      objects.Game.scoreBoard = this._scoreBoard;
 
       this.Main();
     }
@@ -60,6 +64,13 @@ module scenes {
         // check collision between plane and current cloud
         managers.Collision.Check(this._plane, cloud);
       });
+
+      // if lives fall below zero switch scenes to the game over scene
+      if(this._scoreBoard.Lives <= 0) {
+        this._engineSound.stop();
+        objects.Game.currentScene = config.Scene.OVER;
+      }
+
     }
 
     // This is where the fun happens
@@ -78,6 +89,10 @@ module scenes {
       this._clouds.forEach(cloud => {
         this.addChild(cloud);
       });
+
+      // add scoreboard labels to the scene
+      this.addChild(this._scoreBoard.LivesLabel);
+      this.addChild(this._scoreBoard.ScoreLabel);
     }
   }
 }
